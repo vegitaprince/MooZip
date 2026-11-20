@@ -1,0 +1,4 @@
+LIBRARY MooZipShell
+EXPORTS
+    DllGetClassObject PRIVATE
+    DllCanUnloadNow PRIVATE

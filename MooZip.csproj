@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
+    <Version>1.1.0</Version><Product>MooZip</Product><Description>압축 파일 관리자</Description>
+    <ApplicationIcon>Assets/MooZip.ico</ApplicationIcon><DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpCompress" Version="0.50.10"/>
+    <Resource Include="Assets/MooZip.png"/><Resource Include="Assets/MooZip.ico"/>
+    <Content Include="ThirdParty.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
