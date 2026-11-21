@@ -1,17 +1,25 @@
-# MooZip 1.1.0
+# MooZip 1.2.0
 
 Windows x64용 한국어 압축 파일 관리자입니다. MooView의 회색 패널, 왼쪽 도구막대, 밝은 테마와 어두운 테마를 사용합니다.
 
-[Windows x64 설치 파일](https://github.com/vegitaprince/MooZip/releases/download/v1.1.0/MooZip-Setup-1.1.0-x64.exe) · [모든 배포 파일](https://github.com/vegitaprince/MooZip/releases/latest)
+[Windows x64 포터블 ZIP 다운로드](https://github.com/vegitaprince/MooZip/releases/download/v1.2.0/MooZip-Portable-1.2.0-x64.zip) · [모든 배포 파일](https://github.com/vegitaprince/MooZip/releases/latest)
 
-## 탐색기에서 압축하고 풀기
+## Windows 11 첫 우클릭 메뉴
 
-설치 프로그램의 **탐색기 우클릭 메뉴** 옵션은 기본으로 켜져 있습니다. Windows 10에서는 파일이나 폴더를 우클릭하세요. Windows 11에서는 우클릭한 뒤 **더 많은 옵션 표시**를 선택하세요.
+ZIP 전체를 계속 사용할 폴더에 풀고 **MooZip.exe**를 실행하세요. 왼쪽 아래 **탐색기 메뉴 등록**을 한 번 누르면, ZIP·7Z·RAR·TAR 파일 하나를 우클릭한 첫 화면에 **MooZip**이 표시됩니다.
 
-- 파일과 폴더를 하나 이상 선택하고 **MooZip으로 압축…**을 누르면 선택한 항목을 한 압축 파일로 묶을 수 있습니다.
-- ZIP·7Z·RAR·TAR 파일 하나를 우클릭하고 **MooZip**을 열면 **알아서 풀기**, **여기에 풀기**, **폴더를 선택하여 풀기…**, **MooZip으로 열기**를 사용할 수 있습니다.
-- 설치 시 네 가지 형식의 기본 앱 후보로 MooZip을 등록합니다. MooZip의 **기본 앱 설정…**을 누른 뒤 Windows 설정에서 원하는 확장자에 MooZip을 선택하세요. Windows 10에서는 기본 앱 설정에서 파일 형식별 연결로 이동하세요.
-- 무설치판에서도 **기본 앱 설정…**으로 파일 연결을 등록할 수 있습니다. 이때 실행 파일을 계속 사용할 폴더에 두세요. 탐색기 우클릭 메뉴는 설치판에 포함됩니다.
+- **알아서 풀기**는 최상위 항목이 여러 개면 압축 파일 이름의 폴더에 모아 풉니다.
+- **여기에 풀기**는 압축 파일이 있는 폴더에 풉니다.
+- **폴더를 선택하여 풀기…**는 저장 위치를 먼저 묻습니다.
+- 일반 파일과 폴더는 여러 개를 선택해 **MooZip으로 압축…**을 실행할 수 있습니다.
+
+Windows 10에서는 기존 탐색기 메뉴에 등록됩니다. 파일 연결은 앱의 **기본 앱 설정…**에서 지정하세요. 폴더를 이동하거나 제거하려면 먼저 그 폴더에서 PowerShell로 `.\MooZip.exe --unregister`를 실행하고, 새 위치에서 메뉴를 다시 등록하세요.
+
+### 새 PC에서 메뉴 서명 확인
+
+앱의 압축 기능은 ZIP을 푼 즉시 사용할 수 있습니다. Windows 11 메뉴는 서명된 확장 패키지를 별도로 등록합니다. 공식 1.2.0 ZIP에는 메뉴 전용 자체 서명 공개 인증서 **MooZipExplorer.cer**가 포함되어 있습니다. 인증서 SHA-256은 공식 릴리스 설명에 게시되어 있습니다.
+
+Windows가 신뢰 오류 **0x800B0109**를 표시하면 공식 릴리스와 공개 인증서의 SHA-256을 먼저 대조하세요. 이 인증서를 신뢰하기로 결정한 경우, 인증서 파일을 열고 **인증서 설치 → 로컬 컴퓨터 → 모든 인증서를 다음 저장소에 저장 → 신뢰할 수 있는 사람**을 선택한 다음 앱의 **탐색기 메뉴 등록**을 다시 누르세요. 관리자 승인이 필요하며 이 PC의 모든 계정에 적용됩니다. 개발 모드를 켤 필요는 없습니다. 메뉴 등록 해제 후에는 Windows의 컴퓨터 인증서 관리에서 이 인증서를 별도로 제거할 수 있습니다.
 
 ## 사용
 
@@ -25,10 +33,6 @@ Windows x64용 한국어 압축 파일 관리자입니다. MooView의 회색 패
 
 ## 빌드
 
-Windows x64에서 .NET 10 SDK, Visual Studio의 C++ 데스크톱 개발 도구와 Windows SDK, Inno Setup 6을 설치하고 실행하세요.
+Windows x64에서 .NET 10 SDK, PowerShell 7, Visual Studio C++ 데스크톱 개발 도구와 Windows SDK로 `.\build.ps1`을 실행하세요. 포터블 ZIP은 artifacts/release에 생성됩니다.
 
-```powershell
-.\build.ps1 -InnoCompiler "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-```
-
-빌드된 앱은 artifacts/app에, 설치 파일은 artifacts/release에 생성됩니다. 압축 라이브러리의 라이선스는 ThirdParty.txt에 있습니다.
+메뉴 패키지 빌드는 기본적으로 한 번만 사용하는 서명 키를 생성하고 공개 인증서를 배포 폴더에 넣습니다. 직접 빌드한 패키지는 공식 릴리스와 인증서가 다릅니다. 별도 서명 인증서를 사용할 때는 manifest의 Publisher와 인증서 주체가 일치해야 하며 빌드에 -CertificateThumbprint를 지정하세요. 압축 라이브러리 라이선스는 ThirdParty.txt에 있습니다.

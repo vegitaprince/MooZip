@@ -18,15 +18,35 @@ static std::wstring Quote(const std::wstring& value)
     return L"\"" + value + std::wstring(trailing, L'\\') + L"\"";
 }
 
-class __declspec(uuid("60F872E6-1916-4F9B-8951-D20ACCDFA3C8")) CompressCommand final
+class Command
     : public RuntimeClass<RuntimeClassFlags<ClassicCom>, IExplorerCommand>
 {
 public:
-    IFACEMETHODIMP GetTitle(IShellItemArray*, PWSTR* title) override { return SHStrDupW(L"MooZip으로 압축…", title); }
+    Command(const wchar_t* title, const wchar_t* verb, GUID id, bool archiveOnly)
+        : title_(title), verb_(verb), id_(id), archiveOnly_(archiveOnly) {}
+    IFACEMETHODIMP GetTitle(IShellItemArray*, PWSTR* title) override { return SHStrDupW(title_, title); }
     IFACEMETHODIMP GetIcon(IShellItemArray*, PWSTR* icon) override { *icon = nullptr; return E_NOTIMPL; }
     IFACEMETHODIMP GetToolTip(IShellItemArray*, PWSTR* tip) override { *tip = nullptr; return E_NOTIMPL; }
-    IFACEMETHODIMP GetCanonicalName(GUID* name) override { *name = __uuidof(CompressCommand); return S_OK; }
-    IFACEMETHODIMP GetState(IShellItemArray*, BOOL, EXPCMDSTATE* state) override { *state = ECS_ENABLED; return S_OK; }
+    IFACEMETHODIMP GetCanonicalName(GUID* name) override { *name = id_; return S_OK; }
+    IFACEMETHODIMP GetState(IShellItemArray* items, BOOL, EXPCMDSTATE* state) override
+    {
+        *state = ECS_ENABLED;
+        if (!archiveOnly_) return S_OK;
+        *state = ECS_HIDDEN;
+        DWORD count = 0;
+        if (!items || FAILED(items->GetCount(&count)) || count != 1) return S_OK;
+        ComPtr<IShellItem> item;
+        if (FAILED(items->GetItemAt(0, &item))) return S_OK;
+        SFGAOF attr{};
+        if (FAILED(item->GetAttributes(SFGAO_FILESYSTEM, &attr)) || !(attr & SFGAO_FILESYSTEM)) return S_OK;
+        PWSTR path = nullptr;
+        if (FAILED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) return S_OK;
+        auto ext = PathFindExtensionW(path);
+        if (!_wcsicmp(ext,L".zip") || !_wcsicmp(ext,L".7z") || !_wcsicmp(ext,L".rar") || !_wcsicmp(ext,L".tar"))
+            *state = ECS_ENABLED;
+        CoTaskMemFree(path);
+        return S_OK;
+    }
     IFACEMETHODIMP GetFlags(EXPCMDFLAGS* flags) override { *flags = ECF_DEFAULT; return S_OK; }
     IFACEMETHODIMP EnumSubCommands(IEnumExplorerCommand** commands) override { *commands = nullptr; return E_NOTIMPL; }
     IFACEMETHODIMP Invoke(IShellItemArray* items, IBindCtx*) override
@@ -43,7 +63,8 @@ public:
             std::wstring exe(location.data(), length);
             exe.resize(exe.find_last_of(L'\\') + 1);
             exe += L"MooZip.exe";
-            std::wstring command = Quote(exe) + L" --create";
+            if (archiveOnly_ && count != 1) return E_INVALIDARG;
+            std::wstring command = Quote(exe) + L" " + verb_;
             for (DWORD i = 0; i < count; ++i)
             {
                 ComPtr<IShellItem> item;
@@ -66,8 +87,23 @@ public:
         }
         catch (const std::bad_alloc&) { return E_OUTOFMEMORY; }
     }
+private:
+    const wchar_t* title_;
+    const wchar_t* verb_;
+    GUID id_;
+    bool archiveOnly_;
 };
-CoCreatableClass(CompressCommand);
+
+#define DEFINE_COMMAND(name, guid, label, verb, archive) \
+    class __declspec(uuid(guid)) name final : public Command { \
+    public: name() : Command(label, verb, __uuidof(name), archive) {} \
+    }; \
+    CoCreatableClass(name)
+
+DEFINE_COMMAND(CompressCommand, "60F872E6-1916-4F9B-8951-D20ACCDFA3C8", L"MooZip으로 압축…", L"--create", false);
+DEFINE_COMMAND(SmartCommand, "2B3CBA82-331B-4D81-B55E-ED16A6761E27", L"알아서 풀기", L"--extract-smart", true);
+DEFINE_COMMAND(HereCommand, "73984C1E-398E-4184-9F86-16BBCDF067B5", L"여기에 풀기", L"--extract-here", true);
+DEFINE_COMMAND(ToCommand, "B987CEF9-F798-46C8-860F-39440CF47998", L"폴더를 선택하여 풀기…", L"--extract-to", true);
 
 BOOL WINAPI DllMain(HINSTANCE module, DWORD reason, LPVOID)
 {
@@ -82,3 +118,4 @@ STDAPI DllCanUnloadNow()
 {
     return Module<InProc>::GetModule().GetObjectCount() == 0 ? S_OK : S_FALSE;
 }
+

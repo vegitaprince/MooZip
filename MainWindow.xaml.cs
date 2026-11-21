@@ -106,6 +106,25 @@ public partial class MainWindow : Window
         else if (verb == "--extract-to") await ExtractAsync(false, false, false);
     }
 
+    async void RegisterMenuClicked(object sender, RoutedEventArgs e)
+    {
+        if (job != null || sender is not Button button) return;
+        button.IsEnabled=false;
+        try
+        {
+            Status.Text="탐색기 메뉴를 등록하는 중…";
+            await Task.Run(() => WindowsIntegration.Install(true));
+            Status.Text="탐색기 메뉴를 등록했습니다. 파일을 다시 우클릭하세요.";
+        }
+        catch (Exception error)
+        {
+            Status.Text="탐색기 메뉴 등록을 완료하지 못했습니다.";
+            MessageBox.Show(this,error.Message+"\n\n0x800B0109는 이 PC에서 메뉴 서명을 아직 신뢰하지 않는다는 뜻입니다. ZIP에 포함된 안내를 확인하세요.",
+                "MooZip · 탐색기 메뉴",MessageBoxButton.OK,MessageBoxImage.Warning);
+        }
+        finally { button.IsEnabled=true; }
+    }
+
     void DefaultAppsClicked(object sender, RoutedEventArgs e)
     {
         try { WindowsIntegration.OpenDefaults(); }
@@ -191,3 +210,4 @@ public partial class MainWindow : Window
     void Maximize(object s,RoutedEventArgs e){if(WindowState==WindowState.Maximized)SystemCommands.RestoreWindow(this);else SystemCommands.MaximizeWindow(this);}
     void CloseApp(object s,RoutedEventArgs e)=>Close();
 }
+

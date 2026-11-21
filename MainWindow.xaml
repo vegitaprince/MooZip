@@ -17,7 +17,7 @@
 <TextBlock Text="최근 압축 파일" FontWeight="SemiBold" Margin="0,0,0,12"/>
 </StackPanel>
 <StackPanel DockPanel.Dock="Bottom"><Border Height="1" Background="{DynamicResource Edge}" Margin="0,16"/>
-<Button Content="기본 앱 설정…" Click="DefaultAppsClicked" Margin="0,0,0,14" ToolTip="ZIP, 7Z, RAR, TAR 기본 앱 연결"/><TextBlock Text="지원 형식" Style="{StaticResource Caption}"/><TextBlock Text="ZIP · 7Z · RAR · TAR" FontSize="12" Margin="0,6,0,0" FontWeight="SemiBold"/></StackPanel>
+<Button Content="탐색기 메뉴 등록" Margin="0,0,0,6" Click="RegisterMenuClicked" ToolTip="이 포터블 폴더의 MooZip을 Windows 탐색기 우클릭 메뉴에 등록"/><Button Content="기본 앱 설정…" Click="DefaultAppsClicked" Margin="0,0,0,14" ToolTip="ZIP, 7Z, RAR, TAR 기본 앱 연결"/><TextBlock Text="지원 형식" Style="{StaticResource Caption}"/><TextBlock Text="ZIP · 7Z · RAR · TAR" FontSize="12" Margin="0,6,0,0" FontWeight="SemiBold"/></StackPanel>
 <Grid><TextBlock x:Name="NoRecent" Text="연 파일이 여기에 표시됩니다." Foreground="{DynamicResource Muted}" FontSize="12" TextWrapping="Wrap" Margin="0,6"/>
 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="RecentList"/></ScrollViewer></Grid></DockPanel></Border>
 <Grid Grid.Column="4"><Grid.RowDefinitions><RowDefinition/><RowDefinition Height="10"/><RowDefinition Height="56"/></Grid.RowDefinitions>
@@ -58,3 +58,4 @@
 <ProgressBar x:Name="Meter" Width="100" Height="5" DockPanel.Dock="Right" Visibility="Collapsed" Foreground="#759F83" Margin="8,0" Maximum="1"/>
 <TextBlock x:Name="Status" Text="준비됨" VerticalAlignment="Center" FontSize="13" TextTrimming="CharacterEllipsis" ToolTip="{Binding RelativeSource={RelativeSource Self},Path=Text}"/></DockPanel></Border>
 </Grid></Grid></Grid></Window>
+

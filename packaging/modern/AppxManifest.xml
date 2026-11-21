@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+ xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+ xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
+ xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+ xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
+ xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
+ xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+ IgnorableNamespaces="uap uap10 com desktop4 desktop5 rescap">
+ <Identity Name="vegitaprince.MooZip.Explorer" Publisher="CN=MooZip Explorer" Version="1.2.0.0" ProcessorArchitecture="x64"/>
+ <Properties><DisplayName>MooZip</DisplayName><PublisherDisplayName>MooZip</PublisherDisplayName><Logo>MenuAssets\Logo.png</Logo><uap10:AllowExternalContent>true</uap10:AllowExternalContent></Properties>
+ <Resources><Resource Language="ko-KR"/></Resources>
+ <Dependencies><TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.0" MaxVersionTested="10.0.26100.0"/></Dependencies>
+ <Applications><Application Id="MooZip" Executable="MooZip.exe" uap10:RuntimeBehavior="win32App" uap10:TrustLevel="mediumIL">
+ <uap:VisualElements DisplayName="MooZip" Description="MooZip 탐색기 메뉴" BackgroundColor="transparent" Square150x150Logo="MenuAssets\Logo150.png" Square44x44Logo="MenuAssets\Logo44.png" AppListEntry="none"/>
+ <Extensions>
+ <com:Extension Category="windows.comServer"><com:ComServer><com:SurrogateServer DisplayName="MooZip">
+ <com:Class Id="60F872E6-1916-4F9B-8951-D20ACCDFA3C8" Path="MooZipShell.dll" ThreadingModel="STA"/>
+ <com:Class Id="2B3CBA82-331B-4D81-B55E-ED16A6761E27" Path="MooZipShell.dll" ThreadingModel="STA"/>
+ <com:Class Id="73984C1E-398E-4184-9F86-16BBCDF067B5" Path="MooZipShell.dll" ThreadingModel="STA"/>
+ <com:Class Id="B987CEF9-F798-46C8-860F-39440CF47998" Path="MooZipShell.dll" ThreadingModel="STA"/>
+ </com:SurrogateServer></com:ComServer></com:Extension>
+ <desktop4:Extension Category="windows.fileExplorerContextMenus"><desktop4:FileExplorerContextMenus>
+ <desktop5:ItemType Type="*"><desktop5:Verb Id="Compress" Clsid="60F872E6-1916-4F9B-8951-D20ACCDFA3C8"/></desktop5:ItemType>
+ <desktop5:ItemType Type="Directory"><desktop5:Verb Id="Compress" Clsid="60F872E6-1916-4F9B-8951-D20ACCDFA3C8"/></desktop5:ItemType>
+ <desktop5:ItemType Type=".zip"><desktop5:Verb Id="SmartExtract" Clsid="2B3CBA82-331B-4D81-B55E-ED16A6761E27"/><desktop5:Verb Id="ExtractHere" Clsid="73984C1E-398E-4184-9F86-16BBCDF067B5"/><desktop5:Verb Id="ExtractTo" Clsid="B987CEF9-F798-46C8-860F-39440CF47998"/></desktop5:ItemType>
+ <desktop5:ItemType Type=".7z"><desktop5:Verb Id="SmartExtract" Clsid="2B3CBA82-331B-4D81-B55E-ED16A6761E27"/><desktop5:Verb Id="ExtractHere" Clsid="73984C1E-398E-4184-9F86-16BBCDF067B5"/><desktop5:Verb Id="ExtractTo" Clsid="B987CEF9-F798-46C8-860F-39440CF47998"/></desktop5:ItemType>
+ <desktop5:ItemType Type=".rar"><desktop5:Verb Id="SmartExtract" Clsid="2B3CBA82-331B-4D81-B55E-ED16A6761E27"/><desktop5:Verb Id="ExtractHere" Clsid="73984C1E-398E-4184-9F86-16BBCDF067B5"/><desktop5:Verb Id="ExtractTo" Clsid="B987CEF9-F798-46C8-860F-39440CF47998"/></desktop5:ItemType>
+ <desktop5:ItemType Type=".tar"><desktop5:Verb Id="SmartExtract" Clsid="2B3CBA82-331B-4D81-B55E-ED16A6761E27"/><desktop5:Verb Id="ExtractHere" Clsid="73984C1E-398E-4184-9F86-16BBCDF067B5"/><desktop5:Verb Id="ExtractTo" Clsid="B987CEF9-F798-46C8-860F-39440CF47998"/></desktop5:ItemType>
+ </desktop4:FileExplorerContextMenus></desktop4:Extension>
+ </Extensions></Application></Applications>
+ <Capabilities><rescap:Capability Name="runFullTrust"/><rescap:Capability Name="unvirtualizedResources"/></Capabilities>
+</Package>

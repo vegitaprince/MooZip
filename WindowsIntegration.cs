@@ -110,6 +110,13 @@ internal static class WindowsIntegration
             }
         }
         else RemoveMenus();
+        bool sameLocation=string.Equals(Get(@"Software\MooZip","ModernMenuOwner"),Exe,StringComparison.OrdinalIgnoreCase);
+        if (menus || sameLocation)
+        {
+            ModernMenu.Configure(menus);
+            if (menus) Set(@"Software\MooZip","ModernMenuOwner",Exe);
+            else DeleteValue(@"Software\MooZip","ModernMenuOwner");
+        }
         Notify();
     }
 
@@ -128,6 +135,11 @@ internal static class WindowsIntegration
     internal static void Uninstall()
     {
         if (!string.Equals(Get(@"Software\MooZip", "AssociationOwner"), Exe, StringComparison.OrdinalIgnoreCase)) return;
+        if (string.Equals(Get(@"Software\MooZip","ModernMenuOwner"),Exe,StringComparison.OrdinalIgnoreCase))
+        {
+            ModernMenu.Configure(false);
+            DeleteValue(@"Software\MooZip","ModernMenuOwner");
+        }
         RemoveMenus();
         foreach (string ext in Extensions)
         {
@@ -141,3 +153,5 @@ internal static class WindowsIntegration
         Notify();
     }
 }
+
+
