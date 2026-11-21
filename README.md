@@ -1,8 +1,8 @@
-# MooZip 1.2.0
+# MooZip 1.3.0
 
 Windows x64용 한국어 압축 파일 관리자입니다. MooView의 회색 패널, 왼쪽 도구막대, 밝은 테마와 어두운 테마를 사용합니다.
 
-[Windows x64 포터블 ZIP 다운로드](https://github.com/vegitaprince/MooZip/releases/download/v1.2.0/MooZip-Portable-1.2.0-x64.zip) · [모든 배포 파일](https://github.com/vegitaprince/MooZip/releases/latest)
+[Windows x64 포터블 ZIP 다운로드](https://github.com/vegitaprince/MooZip/releases/download/v1.3.0/MooZip-Portable-1.3.0-x64.zip) · [모든 배포 파일](https://github.com/vegitaprince/MooZip/releases/latest)
 
 ## Windows 11 첫 우클릭 메뉴
 
@@ -17,9 +17,18 @@ Windows 10에서는 기존 탐색기 메뉴에 등록됩니다. 파일 연결은
 
 ### 새 PC에서 메뉴 서명 확인
 
-앱의 압축 기능은 ZIP을 푼 즉시 사용할 수 있습니다. Windows 11 메뉴는 서명된 확장 패키지를 별도로 등록합니다. 공식 1.2.0 ZIP에는 메뉴 전용 자체 서명 공개 인증서 **MooZipExplorer.cer**가 포함되어 있습니다. 인증서 SHA-256은 공식 릴리스 설명에 게시되어 있습니다.
+앱의 압축 기능은 ZIP을 푼 즉시 사용할 수 있습니다. Windows 11 메뉴는 서명된 확장 패키지를 별도로 등록합니다. 공식 포터블 ZIP에는 메뉴 전용 자체 서명 공개 인증서 **MooZipExplorer.cer**가 포함되어 있습니다. 인증서 SHA-256은 공식 릴리스 설명에 게시되어 있습니다.
 
 Windows가 신뢰 오류 **0x800B0109**를 표시하면 공식 릴리스와 공개 인증서의 SHA-256을 먼저 대조하세요. 이 인증서를 신뢰하기로 결정한 경우, 인증서 파일을 열고 **인증서 설치 → 로컬 컴퓨터 → 모든 인증서를 다음 저장소에 저장 → 신뢰할 수 있는 사람**을 선택한 다음 앱의 **탐색기 메뉴 등록**을 다시 누르세요. 관리자 승인이 필요하며 이 PC의 모든 계정에 적용됩니다. 개발 모드를 켤 필요는 없습니다. 메뉴 등록 해제 후에는 Windows의 컴퓨터 인증서 관리에서 이 인증서를 별도로 제거할 수 있습니다.
+
+## 업데이트
+
+MooZip을 시작할 때 GitHub에서 새 버전을 확인합니다. 최신 버전을 확인한 뒤에는 최대 12시간 동안 시작 시 재확인을 건너뜁니다. 왼쪽 아래 **업데이트… → 지금 확인**은 언제든 사용할 수 있습니다.
+
+- **다운로드 및 다시 시작**을 누르면 확인한 포터블 업데이트를 받고 현재 앱을 닫습니다. 같은 폴더에서 다른 MooZip 창을 열어 두었다면 모두 닫아 주세요.
+- **자동 다운로드 후 MooZip을 닫을 때 적용**을 켜면 새 버전을 미리 받아 다음 정상 종료에 적용합니다. 이 경우 앱은 자동으로 다시 열리지 않습니다.
+- GitHub의 SHA-256과 ZIP 안의 파일 목록을 검증합니다. 업데이트는 기존 폴더에서 프로그램 파일만 교체합니다. 다운로드와 작업 공간에는 쓰기 권한이 필요합니다.
+- 1.2.0 이하에서 오려면 최신 포터블 ZIP을 한 번 직접 받아 기존 앱을 닫은 뒤 파일을 덮어 풀어 주세요. 같은 폴더와 기존 공식 메뉴 패키지를 사용하면 등록 경로와 인증서를 다시 설정할 필요가 없습니다.
 
 ## 사용
 
@@ -34,5 +43,7 @@ Windows가 신뢰 오류 **0x800B0109**를 표시하면 공식 릴리스와 공�
 ## 빌드
 
 Windows x64에서 .NET 10 SDK, PowerShell 7, Visual Studio C++ 데스크톱 개발 도구와 Windows SDK로 `.\build.ps1`을 실행하세요. 포터블 ZIP은 artifacts/release에 생성됩니다.
+
+공식 릴리스에서 동일한 메뉴 명령을 계속 제공할 때는 기존 공식 ZIP을 풀고 그 MooZip 폴더를 -ReuseExplorerFrom에 전달하세요. 이 옵션은 기존 등록과 서명 인증서를 이어서 사용합니다.
 
 메뉴 패키지 빌드는 기본적으로 한 번만 사용하는 서명 키를 생성하고 공개 인증서를 배포 폴더에 넣습니다. 직접 빌드한 패키지는 공식 릴리스와 인증서가 다릅니다. 별도 서명 인증서를 사용할 때는 manifest의 Publisher와 인증서 주체가 일치해야 하며 빌드에 -CertificateThumbprint를 지정하세요. 압축 라이브러리 라이선스는 ThirdParty.txt에 있습니다.

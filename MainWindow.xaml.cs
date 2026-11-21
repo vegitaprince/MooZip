@@ -109,6 +109,7 @@ public partial class MainWindow : Window
     async void RegisterMenuClicked(object sender, RoutedEventArgs e)
     {
         if (job != null || sender is not Button button) return;
+        menuRegistrationPending=true;
         button.IsEnabled=false;
         try
         {
@@ -122,7 +123,7 @@ public partial class MainWindow : Window
             MessageBox.Show(this,error.Message+"\n\n0x800B0109는 이 PC에서 메뉴 서명을 아직 신뢰하지 않는다는 뜻입니다. ZIP에 포함된 안내를 확인하세요.",
                 "MooZip · 탐색기 메뉴",MessageBoxButton.OK,MessageBoxImage.Warning);
         }
-        finally { button.IsEnabled=true; }
+        finally { menuRegistrationPending=false; button.IsEnabled=true; }
     }
 
     void DefaultAppsClicked(object sender, RoutedEventArgs e)
@@ -210,4 +211,3 @@ public partial class MainWindow : Window
     void Maximize(object s,RoutedEventArgs e){if(WindowState==WindowState.Maximized)SystemCommands.RestoreWindow(this);else SystemCommands.MaximizeWindow(this);}
     void CloseApp(object s,RoutedEventArgs e)=>Close();
 }
-
