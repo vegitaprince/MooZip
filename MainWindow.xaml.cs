@@ -102,7 +102,7 @@ public partial class MainWindow : Window
         await OpenAsync(path);
         if (!string.Equals(catalog?.FileName, path, StringComparison.OrdinalIgnoreCase)) return;
         if (verb == "--extract-smart") await ExtractAsync(true, false, false);
-        else if (verb == "--extract-here") await ExtractAsync(false, false, false, here: true);
+        else if (verb == "--extract-here") await ExtractHereAsync();
         else if (verb == "--extract-to") await ExtractAsync(false, false, false);
     }
 
@@ -190,6 +190,8 @@ public partial class MainWindow : Window
     void FilterChanged(object s,TextChangedEventArgs e)=>ApplyFilter();
     void SelectionChanged(object s,SelectionChangedEventArgs e)=>SelectedButton.IsEnabled=MemberGrid.SelectedItems.Count>0;
     void SmartClicked(object s,RoutedEventArgs e)=>_=ExtractAsync(true,false,false);
+    void ExtractHereClicked(object sender, RoutedEventArgs e) => _ = ExtractHereAsync();
+    Task ExtractHereAsync() => ExtractAsync(smart: false, selected: false, test: false, here: true);
     void AllClicked(object s,RoutedEventArgs e)=>_=ExtractAsync(false,false,false);
     void SelectedClicked(object s,RoutedEventArgs e)=>_=ExtractAsync(false,true,false);
     void TestClicked(object s,RoutedEventArgs e)=>_=ExtractAsync(false,false,true);

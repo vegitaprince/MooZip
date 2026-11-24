@@ -1,15 +1,15 @@
-# MooZip 1.3.0
+# MooZip 1.3.1
 
 Windows x64용 한국어 압축 파일 관리자입니다. MooView의 회색 패널, 왼쪽 도구막대, 밝은 테마와 어두운 테마를 사용합니다.
 
-[Windows x64 포터블 ZIP 다운로드](https://github.com/vegitaprince/MooZip/releases/download/v1.3.0/MooZip-Portable-1.3.0-x64.zip) · [모든 배포 파일](https://github.com/vegitaprince/MooZip/releases/latest)
+[Windows x64 포터블 ZIP 다운로드](https://github.com/vegitaprince/MooZip/releases/download/v1.3.1/MooZip-Portable-1.3.1-x64.zip) · [모든 배포 파일](https://github.com/vegitaprince/MooZip/releases/latest)
 
 ## Windows 11 첫 우클릭 메뉴
 
 ZIP 전체를 계속 사용할 폴더에 풀고 **MooZip.exe**를 실행하세요. 왼쪽 아래 **탐색기 메뉴 등록**을 한 번 누르면, ZIP·7Z·RAR·TAR 파일 하나를 우클릭한 첫 화면에 **MooZip**이 표시됩니다.
 
 - **알아서 풀기**는 최상위 항목이 여러 개면 압축 파일 이름의 폴더에 모아 풉니다.
-- **여기에 풀기**는 압축 파일이 있는 폴더에 풉니다.
+- **여기에 풀기**는 압축 파일이 있는 폴더에 풉니다. 앱에서 압축 파일을 열었을 때도 위쪽에 같은 버튼이 표시됩니다.
 - **폴더를 선택하여 풀기…**는 저장 위치를 먼저 묻습니다.
 - 일반 파일과 폴더는 여러 개를 선택해 **MooZip으로 압축…**을 실행할 수 있습니다.
 

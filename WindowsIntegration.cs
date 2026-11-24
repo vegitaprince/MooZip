@@ -110,6 +110,8 @@ internal static class WindowsIntegration
             }
         }
         else RemoveMenus();
+        // Refresh the classic menu even if Windows rejects the optional modern package.
+        Notify();
         bool sameLocation=string.Equals(Get(@"Software\MooZip","ModernMenuOwner"),Exe,StringComparison.OrdinalIgnoreCase);
         if (menus || sameLocation)
         {
@@ -117,7 +119,6 @@ internal static class WindowsIntegration
             if (menus) Set(@"Software\MooZip","ModernMenuOwner",Exe);
             else DeleteValue(@"Software\MooZip","ModernMenuOwner");
         }
-        Notify();
     }
 
     static void AddAction(string menu, string id, string title, string argument)

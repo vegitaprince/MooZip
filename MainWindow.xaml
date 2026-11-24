@@ -44,6 +44,7 @@
 </StackPanel></Border>
 <Grid x:Name="BrowserPane" Visibility="Collapsed"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition/></Grid.RowDefinitions>
 <WrapPanel Margin="0,0,0,12"><Button Content="알아서 풀기" Style="{StaticResource Primary}" Click="SmartClicked" ToolTip="압축 파일이 있는 위치에 내부 구조에 맞춰 풀기"/>
+<Button x:Name="ExtractHereButton" Content="여기에 풀기" Margin="6,0,0,0" Click="ExtractHereClicked" ToolTip="압축 파일이 있는 폴더에 전체 항목 풀기"/>
 <Button Content="전체 풀기…" Margin="6,0,0,0" Click="AllClicked"/><Button x:Name="SelectedButton" Content="선택 풀기…" Margin="6,0,0,0" Click="SelectedClicked"/><Button Content="검사" Margin="6,0,0,0" Click="TestClicked" ToolTip="모든 항목을 읽어 무결성 검사"/></WrapPanel>
 <DockPanel Grid.Row="1" Margin="0,0,0,10"><TextBlock Text="검색" VerticalAlignment="Center" Margin="0,0,10,0"/><TextBox x:Name="SearchBox" AutomationProperties.Name="파일 이름 또는 경로 검색" ToolTip="파일 이름 또는 경로 검색 (Ctrl+F)" TextChanged="FilterChanged"/></DockPanel>
 <Grid Grid.Row="2"><DataGrid x:Name="MemberGrid" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" CanUserAddRows="False" CanUserReorderColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" Background="{DynamicResource Surface}" Foreground="{DynamicResource Ink}" RowBackground="{DynamicResource Surface}" RowHeight="36" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{DynamicResource Edge}" BorderBrush="{DynamicResource Edge}" BorderThickness="1" EnableRowVirtualization="True" SelectionChanged="SelectionChanged">
